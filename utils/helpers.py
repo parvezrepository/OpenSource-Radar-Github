@@ -36,51 +36,48 @@ LANGUAGE_COLORS: dict[str, str] = {
 
 def inject_custom_css() -> None:
     """Inject Cinematic Editorial design system CSS."""
-    st.markdown(
-        textwrap.dedent(
-            """
-            <style>
-            @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Syne:wght@700;800&display=swap');
+    _CSS = """<style>
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Syne:wght@700;800&display=swap');
 
-            /* 1. Neutralize Streamlit stale opacity flicker & jarring double-show effect */
-            div[data-stale="true"],
-            .stApp[data-stale="true"],
-            [data-testid="stSidebar"][data-stale="true"],
-            [data-testid="stSidebarContent"][data-stale="true"],
-            [data-testid="stSidebarUserContent"][data-stale="true"],
-            [data-testid="stMainBlockContainer"][data-stale="true"] {
-                opacity: 1 !important;
-                filter: none !important;
-                transition: none !important;
-            }
+/* 1. Neutralize Streamlit stale opacity flicker & jarring double-show effect */
+div[data-stale="true"],
+.stApp[data-stale="true"],
+[data-testid="stSidebar"][data-stale="true"],
+[data-testid="stSidebarContent"][data-stale="true"],
+[data-testid="stSidebarUserContent"][data-stale="true"],
+[data-testid="stMainBlockContainer"][data-stale="true"] {
+    opacity: 1 !important;
+    filter: none !important;
+    transition: none !important;
+}
 
-            /* Prevent DOM-recreation flicker across reruns */
-            .stApp,
-            .stApp [data-testid="stSidebar"],
-            .stApp [data-testid="stSidebarContent"],
-            .stApp [data-testid="stSidebarNav"] {
-                transition: none !important;
-            }
+/* Prevent DOM-recreation flicker across reruns */
+.stApp,
+.stApp [data-testid="stSidebar"],
+.stApp [data-testid="stSidebarContent"],
+.stApp [data-testid="stSidebarNav"] {
+    transition: none !important;
+}
 
-            /* Subtle, ultra-smooth page fade-in (pure opacity, zero layout shift) */
-            @keyframes pageFadeIn {
-                from { opacity: 0.88; }
-                to { opacity: 1; }
-            }
+/* Subtle, ultra-smooth page fade-in (pure opacity, zero layout shift) */
+@keyframes pageFadeIn {
+    from { opacity: 0.88; }
+    to { opacity: 1; }
+}
 
-            .stApp [data-testid="stMainBlockContainer"] {
-                animation: pageFadeIn 0.18s ease-out !important;
-            }
+.stApp [data-testid="stMainBlockContainer"] {
+    animation: pageFadeIn 0.18s ease-out !important;
+}
 
-            /* Global typography & base */
-            html, body, [class*="css"], .stApp {
-                font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
-                background-color: #181818 !important;
-                color: #EBDCC4 !important;
-            }
+/* Global typography & base */
+html, body, [class*="css"], .stApp {
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+    background-color: #181818 !important;
+    color: #EBDCC4 !important;
+}
 
-        /* Subtle 3% analog noise overlay */
-        .stApp::before {
+/* Subtle 3% analog noise overlay */
+.stApp::before {
             content: "";
             position: fixed;
             top: 0; left: 0; width: 100vw; height: 100vh;
@@ -896,11 +893,8 @@ def inject_custom_css() -> None:
         ::-webkit-scrollbar-thumb:hover {
             background: #66473B;
         }
-        </style>
-        """
-        ).strip(),
-        unsafe_allow_html=True,
-    )
+</style>"""
+    st.markdown(_CSS, unsafe_allow_html=True)
 
 
 def render_page_header(
